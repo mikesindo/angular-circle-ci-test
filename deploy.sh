@@ -41,8 +41,8 @@ deploy_cluster() {
 make_task_def(){
 	task_template='[
 		{
-			"name": "go-sample-webapp",
-			"image": "%s.dkr.ecr.us-east-1.amazonaws.com/go-sample-webapp:%s",
+			"name": "lasgro-task-defination",
+			"image": "923903436004.dkr.ecr.us-east-1.amazonaws.com/lasgro-repo/latest ",
 			"essential": true,
 			"memory": 200,
 			"cpu": 10,
@@ -60,7 +60,7 @@ make_task_def(){
 
 push_ecr_image(){
 	eval $(aws ecr get-login --region us-east-1 --no-include-email)
-	docker push 923903436004.dkr.ecr.us-east-1.amazonaws.com/mike-repo:$CIRCLE_SHA1
+	docker push 923903436004.dkr.ecr.us-east-1.amazonaws.com/lasgro-repo:$CIRCLE_SHA1
 }
 
 register_definition() {
