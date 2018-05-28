@@ -1,7 +1,5 @@
 
 machine:
-  node:
-    version: 10.1.0
   services:
     - docker
 
