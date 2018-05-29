@@ -1,7 +1,8 @@
+
 #!/usr/bin/env bash
 
 # more bash-friendly output for jq
-JQ="jq --raw-output --exit-status"
+JQ='jq --raw-output --exit-status'
 
 configure_aws_cli(){
 	aws --version
@@ -15,7 +16,7 @@ deploy_cluster() {
 
     make_task_def
     register_definition
-    if [[ $(aws ecs update-service --cluster sample-webapp-cluster --service sample-webapp-service --task-definition $revision | \
+    if [[ $(aws ecs update-service --cluster lasgro-cluster --service service-lasgro --task-definition $revision | \
                    $JQ '.service.taskDefinition') != $revision ]]; then
         echo "Error updating service."
         return 1
@@ -24,7 +25,7 @@ deploy_cluster() {
     # wait for older revisions to disappear
     # not really necessary, but nice for demos
     for attempt in {1..30}; do
-        if stale=$(aws ecs describe-services --cluster sample-webapp-cluster --services sample-webapp-service | \
+        if stale=$(aws ecs describe-services --cluster lasgro-cluster --service service-lasgro | \
                        $JQ ".services[0].deployments | .[] | select(.taskDefinition != \"$revision\") | .taskDefinition"); then
             echo "Waiting for stale deployments:"
             echo "$stale"
@@ -42,7 +43,7 @@ make_task_def(){
 	task_template='[
 		{
 			"name": "lasgro-task-defination",
-			"image": "923903436004.dkr.ecr.us-east-1.amazonaws.com/lasgro-repo/latest ",
+			"image": "923903436004.dkr.ecr.us-east-1.amazonaws.com/lasgro-repo/latest",
 			"essential": true,
 			"memory": 200,
 			"cpu": 10,
