@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 
 # more bash-friendly output for jq
@@ -12,11 +11,11 @@ configure_aws_cli(){
 
 deploy_cluster() {
 
-    family="sample-webapp-task-family"
+    family="lasgro-task-defination-family"
 
     make_task_def
     register_definition
-    if [[ $(aws ecs update-service --cluster lasgro-cluster --service service-lasgro --task-definition $revision | \
+    if [[ $(aws ecs update-service --cluster lasgro-cluster --service lasgro-final-service --task-definition $revision | \
                    $JQ '.service.taskDefinition') != $revision ]]; then
         echo "Error updating service."
         return 1
@@ -25,8 +24,8 @@ deploy_cluster() {
     # wait for older revisions to disappear
     # not really necessary, but nice for demos
     for attempt in {1..30}; do
-        if stale=$(aws ecs describe-services --cluster lasgro-cluster --service service-lasgro | \
-                       $JQ ".services[0].deployments | .[] | select(.taskDefinition != \"$revision\") | .taskDefinition"); then
+        if stale=$(aws ecs describe-services --cluster lasgro-cluster --service lasgro-final-service | \
+                       $JQ '.services[0].deployments | .[] | select(.taskDefinition != \"$revision\") | .taskDefinition'); then
             echo "Waiting for stale deployments:"
             echo "$stale"
             sleep 5
@@ -61,7 +60,7 @@ make_task_def(){
 
 push_ecr_image(){
 	eval $(aws ecr get-login --region us-east-1 --no-include-email)
-	docker push 923903436004.dkr.ecr.us-east-1.amazonaws.com/lasgro-repo:$CIRCLE_SHA1
+	docker push 923903436004.dkr.ecr.us-east-1.amazonaws.com/lasgro-repo $CIRCLE_SHA1
 }
 
 register_definition() {
