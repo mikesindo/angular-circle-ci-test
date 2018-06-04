@@ -15,4 +15,4 @@ EXPOSE 4200
 ENTRYPOINT ["/opt/angulartest"]
 
 #start the application
-CMD ["ng serve"]
+CMD ["ng serve --open"]
