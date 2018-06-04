@@ -15,4 +15,4 @@ EXPOSE 4200
 ENTRYPOINT ["/opt/angular-circle-ci-test"]
 
 #start the application
-CMD ["ng serve --open"]
+CMD ["ng serve"]
