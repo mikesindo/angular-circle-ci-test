@@ -5,7 +5,7 @@ FROM ubuntu:14.04
 # Update the repository sources list
 RUN apt-get update -y && apt-get install jq -y
 
-COPY ./angular-circle-ci-test /
+COPY ./angular-circle-ci-test .
 
 EXPOSE 4200
 
