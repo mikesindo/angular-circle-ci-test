@@ -12,7 +12,7 @@ dependencies:
 test:
   post:
     - docker run -d -p 4200:4200 $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/lasgro-repo:$CIRCLE_SHA1; sleep 10
-    - curl --retry 10 --retry-delay 5 http://localhost:4200 | grep "Welcome to app!"
+    - curl --retry 10 --retry-delay 5 4200:4200 | grep "Welcome to app!"
 
     
    
