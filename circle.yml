@@ -11,7 +11,7 @@ dependencies:
 
 test:
   post:
-    - docker run -d -p 4200:80 $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/lasgro-repo:$CIRCLE_SHA1; sleep 10
+    - docker run -d -p 4200:4200 $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/lasgro-repo:$CIRCLE_SHA1; sleep 10
     - curl -vs -o /dev/null http://localhost: 4200
 
     
