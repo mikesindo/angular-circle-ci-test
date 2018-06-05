@@ -5,11 +5,6 @@ FROM ubuntu:14.04
 # Update the repository sources list
 RUN apt-get update -y && apt-get install jq -y
 
-RUN base=https://github.com/docker/machine/releases/download/v0.14.0 &&
-  curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
-  sudo install /tmp/docker-machine /usr/local/bin/docker-machine
-
-
 RUN apt-get install git -y
 
 #COPY ./angular-circle-ci-test /opt/
