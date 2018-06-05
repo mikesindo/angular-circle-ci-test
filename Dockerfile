@@ -6,7 +6,7 @@ FROM ubuntu:14.04
 RUN apt-get update -y && apt-get install jq -y
 
 #start the application
-CMD ["ng serve"]
+
 
 RUN apt-get install git -y
 
@@ -16,5 +16,6 @@ RUN git clone https://github.com/mikesindo/angular-circle-ci-test.git /opt/angul
 EXPOSE 4200
 
 ENTRYPOINT ["/opt/angulartest"]
+CMD ["ng serve"]
 
 
