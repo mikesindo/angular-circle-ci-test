@@ -15,6 +15,6 @@ EXPOSE 4200
 ENTRYPOINT ["/opt/angulartest"]
 
 #start the application
-CMD ["ng serve"]
+CMD ["ng serve --host 0.0.0.0 --port 4200"]
 
 
